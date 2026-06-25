@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Playfair_Display, Inter } from 'next/font/google'
 import './globals.css'
+import NavBar from '@/components/layout/NavBar'
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -8,7 +9,6 @@ const playfair = Playfair_Display({
   variable: '--font-playfair',
   display: 'swap',
 })
-
 const inter = Inter({
   subsets: ['latin'],
   weight: ['400', '500', '600'],
@@ -24,7 +24,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="fr" className={`${playfair.variable} ${inter.variable}`}>
-      <body>{children}</body>
+      <body className="pb-16">
+        {children}
+        <NavBar />
+      </body>
     </html>
   )
 }
