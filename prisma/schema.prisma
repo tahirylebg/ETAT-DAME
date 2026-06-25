@@ -1,0 +1,101 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum MenuType {
+  EAT
+  DRINK
+  COCKTAIL
+}
+
+enum ApplicationStatus {
+  NEW
+  REVIEWED
+  ARCHIVED
+}
+
+model Category {
+  id       String    @id @default(cuid())
+  menuType MenuType
+  name     String                          // ex: "Café & espresso", "Classiques", "Signatures"
+  slug     String    @unique               // ex: "cafe-espresso"
+  order    Int       @default(0)           // ordre d'affichage dans la page menu
+  products Product[]
+
+  @@index([menuType])
+}
+
+model Product {
+  id          String       @id @default(cuid())
+  name        String
+  description String?      // ex: "Pain brioché, jambon cru, œufs pochés, hollandaise maison"
+  price       Decimal      @db.Decimal(6, 2)
+  image       String?      // URL Cloudinary
+  isNew       Boolean      @default(false) // badge "NEW" vu sur les wireframes
+  available   Boolean      @default(true)  // permet de masquer un plat sans le supprimer
+  order       Int          @default(0)
+  category    Category     @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  categoryId  String
+  ingredients Ingredient[] @relation("ProductIngredients")
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  @@index([categoryId])
+}
+
+model Ingredient {
+  id       String    @id @default(cuid())
+  name     String    @unique
+  products Product[] @relation("ProductIngredients")
+}
+
+model Extra {
+  id       String   @id @default(cuid())
+  menuType MenuType                        // pour distinguer suppléments repas / extras boissons
+  name     String                          // ex: "Lait d'avoine", "Avocat", "Bacon"
+  price    Decimal  @db.Decimal(6, 2)
+  order    Int      @default(0)
+
+  @@index([menuType])
+}
+
+model JobApplication {
+  id        String            @id @default(cuid())
+  firstName String
+  lastName  String
+  email     String
+  phone     String?
+  message   String
+  cvUrl     String                          // URL Cloudinary du CV uploadé
+  status    ApplicationStatus @default(NEW)
+  createdAt DateTime          @default(now())
+
+  @@index([status])
+}
+
+model OpeningHour {
+  id        String  @id @default(cuid())
+  dayOfWeek Int                            // 0 = Lundi ... 6 = Dimanche
+  openTime  String?                        // "09:00" — null si fermé
+  closeTime String?                        // "16:00"
+  isClosed  Boolean @default(false)
+
+  @@unique([dayOfWeek])
+}
+
+model RestaurantInfo {
+  id         String   @id @default(cuid()) // une seule ligne en pratique (singleton géré côté code)
+  address    String
+  postalCode String
+  city       String
+  region     String
+  phone      String
+  email      String
+  instagram  String
+  mapsUrl    String
+  updatedAt  DateTime @updatedAt
+}
