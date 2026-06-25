@@ -15,7 +15,7 @@ const securityHeaders = [
     value: [
       "default-src 'self'",
       "img-src 'self' https://res.cloudinary.com data:",
-      "script-src 'self' 'unsafe-inline'",
+      `script-src 'self' 'unsafe-inline'${process.env.NODE_ENV === 'development' ? " 'unsafe-eval'" : ''}`,
       "style-src 'self' 'unsafe-inline'",
       "connect-src 'self'",
       "frame-src 'self' https://www.google.com",
