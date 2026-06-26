@@ -12,6 +12,11 @@ enum MenuType {
   COCKTAIL
 }
 
+enum Service {
+  MIDI
+  SOIR
+}
+
 enum ApplicationStatus {
   NEW
   REVIEWED
@@ -80,11 +85,12 @@ model JobApplication {
 model OpeningHour {
   id        String  @id @default(cuid())
   dayOfWeek Int                            // 0 = Lundi ... 6 = Dimanche
+  service   Service @default(MIDI)         // MIDI ou SOIR — permet 2 créneaux le même jour
   openTime  String?                        // "09:00" — null si fermé
   closeTime String?                        // "16:00"
   isClosed  Boolean @default(false)
 
-  @@unique([dayOfWeek])
+  @@unique([dayOfWeek, service])
 }
 
 model RestaurantInfo {

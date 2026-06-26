@@ -14,7 +14,15 @@ export async function sendCandidatureNotification(application: JobApplication) {
     from: 'État Dame <onboarding@resend.dev>',
     to: process.env.NOTIFICATION_EMAIL!,
     subject: `Nouvelle candidature : ${application.firstName} ${application.lastName}`,
-    html: `...`,
+    html: `
+      <h2>Nouvelle candidature spontanée</h2>
+      <p><strong>Nom :</strong> ${application.firstName} ${application.lastName}</p>
+      <p><strong>Email :</strong> ${application.email}</p>
+      <p><strong>Téléphone :</strong> ${application.phone ?? 'Non renseigné'}</p>
+      <p><strong>Message :</strong></p>
+      <p>${application.message}</p>
+      <p><a href="${application.cvUrl}">Télécharger le CV</a></p>
+    `,
   })
 
   if (error) {

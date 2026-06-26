@@ -13,13 +13,16 @@ const config: Config = {
           700: '#7A5304',
           900: '#684704',
         },
+        garrigue: {
+          700: '#5C6E4F',
+        },
       },
       fontFamily: {
         display: ['var(--font-playfair)', 'serif'],
         sans: ['var(--font-inter)', 'sans-serif'],
       },
       borderRadius: {
-        card: '0.5rem',
+        card: '0.375rem',
       },
     },
   },

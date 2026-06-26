@@ -11,10 +11,19 @@ export async function uploadCv(file: File): Promise<string> {
 
   const result = await new Promise<{ secure_url: string }>((resolve, reject) => {
     cloudinary.uploader
-      .upload_stream({ folder: 'etat-dame/cv', resource_type: 'raw' }, (error, result) => {
-        if (error || !result) return reject(error)
-        resolve(result)
-      })
+      .upload_stream(
+        {
+          folder: 'etat-dame/cv',
+          resource_type: 'raw',
+          use_filename: true,
+          unique_filename: true,
+          filename_override: file.name,
+        },
+        (error, result) => {
+          if (error || !result) return reject(error)
+          resolve(result)
+        }
+      )
       .end(buffer)
   })
 

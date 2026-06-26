@@ -13,11 +13,12 @@ export default function Button({
   children,
   ...props
 }: ButtonProps) {
-  const base = 'px-6 py-2.5 rounded-card font-sans font-medium transition-colors'
+  const base =
+    'px-6 py-2.5 min-h-[44px] rounded-card font-sans font-medium transition-all duration-150 touch-manipulation hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-creme-700 focus-visible:outline-offset-2'
 
   const variants = {
-    primary: 'bg-creme-700 text-creme-50 hover:bg-creme-900',
-    secondary: 'border border-creme-500 text-creme-700 hover:bg-creme-100',
+    primary: 'bg-creme-900 text-creme-50 hover:bg-creme-700 hover:shadow-md',
+    secondary: 'border border-creme-500 text-creme-700 hover:bg-creme-100 hover:border-creme-700',
   }
 
   return (
