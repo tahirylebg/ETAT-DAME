@@ -1,14 +1,16 @@
-﻿import CandidatureForm from '@/components/forms/CandidatureForm'
+import CandidatureForm from '@/components/forms/CandidatureForm'
+import PageHeader from '@/components/layout/PageHeader'
+import FloatingFoodIcons from '@/components/home/FloatingFoodIcons'
 
 export default function CandidaturePage() {
   return (
-    <div className="px-6 pt-8 pb-6">
-      <p className="text-xs uppercase tracking-wide text-creme-500 mb-2">
-        Rejoindre l&apos;équipe
-      </p>
-      <h1 className="text-4xl mb-6">Candidature spontanée</h1>
+    <div className="relative px-6 pt-8 pb-6 overflow-hidden">
+      <FloatingFoodIcons />
+      <div className="relative z-10">
+        <PageHeader eyebrow="Rejoindre l'équipe" title="Candidature spontanée" />
 
-      <CandidatureForm />
+        <CandidatureForm />
+      </div>
     </div>
   )
 }

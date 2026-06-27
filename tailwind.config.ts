@@ -22,7 +22,7 @@ const config: Config = {
         sans: ['var(--font-inter)', 'sans-serif'],
       },
       borderRadius: {
-        card: '0.375rem',
+        card: '0.125rem',
       },
     },
   },

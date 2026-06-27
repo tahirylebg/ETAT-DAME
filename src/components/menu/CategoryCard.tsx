@@ -22,17 +22,20 @@ export default function CategoryCard({
   return (
     <Link
       href={href}
-      className="group block rounded-card border border-creme-300 overflow-hidden bg-creme-100 mb-4 transition-all duration-200 touch-manipulation hover:-translate-y-1 hover:shadow-lg hover:border-creme-500 focus-visible:outline-2 focus-visible:outline-creme-700 focus-visible:outline-offset-2"
+      className="group block rounded-card border border-creme-300 overflow-hidden bg-creme-100 mb-4 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] touch-manipulation hover:-translate-y-1 hover:shadow-lg hover:border-creme-500 focus-visible:outline-2 focus-visible:outline-creme-700 focus-visible:outline-offset-2"
     >
       <div className="relative h-32 bg-gradient-to-br from-creme-300 to-creme-100 overflow-hidden">
         {image ? (
-          <Image
-            src={image}
-            alt={title}
-            fill
-            sizes="100vw"
-            className="object-cover transition-transform duration-300 group-hover:scale-105"
-          />
+          <>
+            <Image
+              src={image}
+              alt={title}
+              fill
+              sizes="100vw"
+              className="object-cover transition-transform duration-300 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-creme-900/55 via-transparent to-transparent" />
+          </>
         ) : (
           Icon && (
             <Icon
@@ -42,7 +45,11 @@ export default function CategoryCard({
             />
           )
         )}
-        <span className="absolute bottom-2 left-3 font-display text-2xl text-creme-900 drop-shadow-sm transition-transform duration-200 group-hover:translate-x-1">
+        <span
+          className={`absolute bottom-2 left-3 font-display text-2xl drop-shadow-sm transition-transform duration-200 group-hover:translate-x-1 ${
+            image ? 'text-creme-50' : 'text-creme-900'
+          }`}
+        >
           {title}
         </span>
       </div>

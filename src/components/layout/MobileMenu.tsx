@@ -19,39 +19,36 @@ export default function MobileMenu() {
   return (
     <>
       <button
-        onClick={() => setOpen(true)}
-        aria-label="Ouvrir le menu"
+        onClick={() => setOpen((v) => !v)}
+        aria-label={open ? 'Fermer le menu' : 'Ouvrir le menu'}
         className="fixed top-4 right-4 z-50 p-2.5 text-creme-900 touch-manipulation focus-visible:outline-2 focus-visible:outline-creme-700 focus-visible:outline-offset-2"
       >
-        <Menu size={24} />
+        {open ? <X size={24} /> : <Menu size={24} />}
       </button>
 
       {open && (
-        <div className="fixed inset-0 z-50 bg-creme-50">
-          <div className="flex justify-between items-center px-6 pt-4 pb-4 border-b border-creme-300">
-            <span className="font-display text-xl text-creme-900">État Dame</span>
-            <button
-              onClick={() => setOpen(false)}
-              aria-label="Fermer le menu"
-              className="p-2.5 -mr-2.5 text-creme-900 touch-manipulation focus-visible:outline-2 focus-visible:outline-creme-700 focus-visible:outline-offset-2"
-            >
-              <X size={24} />
-            </button>
-          </div>
+        <>
+          <div
+            className="fixed inset-0 z-40 bg-creme-900/30 animate-fade-in-up"
+            onClick={() => setOpen(false)}
+            aria-hidden="true"
+          />
 
-          <nav className="flex flex-col px-6 py-4">
-            {links.map(({ href, label }) => (
-              <Link
-                key={href}
-                href={href}
-                onClick={() => setOpen(false)}
-                className="py-3.5 border-b border-creme-300 text-creme-900 touch-manipulation focus-visible:outline-2 focus-visible:outline-creme-700 focus-visible:outline-offset-2"
-              >
-                {label}
-              </Link>
-            ))}
-          </nav>
-        </div>
+          <div className="fixed top-16 right-4 z-50 w-64 max-w-[calc(100vw-2rem)] bg-creme-50 rounded-card shadow-lg border border-creme-300 overflow-hidden animate-fade-in-up">
+            <nav className="flex flex-col py-2">
+              {links.map(({ href, label }) => (
+                <Link
+                  key={href}
+                  href={href}
+                  onClick={() => setOpen(false)}
+                  className="px-4 py-3 text-sm text-creme-900 touch-manipulation hover:bg-creme-100 transition-colors focus-visible:outline-2 focus-visible:outline-creme-700 focus-visible:outline-offset-2"
+                >
+                  {label}
+                </Link>
+              ))}
+            </nav>
+          </div>
+        </>
       )}
     </>
   )

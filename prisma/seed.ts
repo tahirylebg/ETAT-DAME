@@ -146,7 +146,7 @@ async function main() {
       region: 'Occitanie',
       phone: '04 66 00 00 00',
       email: 'contact@etatdame.fr',
-      instagram: '@etatdame',
+      instagram: '@etatdame_brunch',
       mapsUrl: 'https://maps.google.com/?q=12+rue+de+la+République,30000+Nîmes',
     },
   })

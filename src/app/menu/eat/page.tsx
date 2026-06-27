@@ -1,5 +1,7 @@
-﻿import { prisma } from '@/lib/prisma'
+import { prisma } from '@/lib/prisma'
 import ProductList from '@/components/menu/ProductList'
+import PageHeader from '@/components/layout/PageHeader'
+import FloatingFoodIcons from '@/components/home/FloatingFoodIcons'
 
 export default async function EatPage() {
   const categories = await prisma.category.findMany({
@@ -14,26 +16,26 @@ export default async function EatPage() {
   })
 
   return (
-    <div className="px-6 pt-8 pb-6">
-      <p className="text-xs uppercase tracking-wide text-creme-500 mb-2">
-        Menu · Eat
-      </p>
-      <h1 className="text-4xl mb-6">Eat</h1>
+    <div className="relative px-6 pt-8 pb-6 overflow-hidden">
+      <FloatingFoodIcons />
+      <div className="relative z-10">
+        <PageHeader eyebrow="Menu · Eat" title="Eat" />
 
-      {categories.map((category) => (
-        <ProductList
-          key={category.id}
-          title={category.name}
-          products={category.products.map((product) => ({
-            id: product.id,
-            name: product.name,
-            description: product.description ?? undefined,
-            price: product.price.toNumber(),
-            isNew: product.isNew,
-            image: product.image ?? undefined,
-          }))}
-        />
-      ))}
+        {categories.map((category) => (
+          <ProductList
+            key={category.id}
+            title={category.name}
+            products={category.products.map((product) => ({
+              id: product.id,
+              name: product.name,
+              description: product.description ?? undefined,
+              price: product.price.toNumber(),
+              isNew: product.isNew,
+              image: product.image ?? undefined,
+            }))}
+          />
+        ))}
+      </div>
     </div>
   )
 }

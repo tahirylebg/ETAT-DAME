@@ -1,17 +1,17 @@
 import type { Metadata } from 'next'
-import { Playfair_Display, Inter } from 'next/font/google'
+import { Yeseva_One, Karla } from 'next/font/google'
 import './globals.css'
 import Footer from '@/components/layout/Footer'
 import NavBar from '@/components/layout/NavBar'
 import MobileMenu from '@/components/layout/MobileMenu'
 
-const playfair = Playfair_Display({
+const playfair = Yeseva_One({
   subsets: ['latin'],
-  weight: ['400', '600', '700'],
+  weight: ['400'],
   variable: '--font-playfair',
   display: 'swap',
 })
-const inter = Inter({
+const inter = Karla({
   subsets: ['latin'],
   weight: ['400', '500', '600'],
   variable: '--font-inter',

@@ -25,8 +25,8 @@ export default function NavBar() {
 
   return (
     <nav
-      className={`fixed bottom-0 left-0 right-0 bg-creme-50 border-t border-creme-300 flex justify-around py-2 z-50 transition-shadow duration-300 ${
-        scrolled ? 'shadow-[0_-6px_16px_-4px_rgba(104,71,4,0.15)]' : 'shadow-none'
+      className={`fixed bottom-0 left-0 right-0 bg-creme-300 border-t border-creme-500 flex justify-around py-2 z-50 transition-shadow duration-300 ${
+        scrolled ? 'shadow-[0_-6px_16px_-4px_rgba(104,71,4,0.25)]' : 'shadow-none'
       }`}
     >
       {links.map(({ href, label, icon: Icon }) => {
@@ -36,7 +36,7 @@ export default function NavBar() {
             key={href}
             href={href}
             className={`flex flex-col items-center text-xs gap-1 px-3 py-2 min-w-[44px] touch-manipulation transition-all duration-200 active:scale-90 focus-visible:outline-2 focus-visible:outline-creme-700 focus-visible:outline-offset-2 ${
-              isActive ? 'text-creme-900 font-medium' : 'text-creme-500 hover:text-creme-700'
+              isActive ? 'text-creme-900 font-medium' : 'text-creme-700 hover:text-creme-900'
             }`}
           >
             <Icon

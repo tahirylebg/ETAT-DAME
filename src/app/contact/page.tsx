@@ -1,66 +1,96 @@
-﻿import { prisma } from '@/lib/prisma'
+import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
 import Card from '@/components/ui/Card'
 import Button from '@/components/ui/Button'
-import { Phone, Mail, AtSign } from 'lucide-react'
+import PageHeader from '@/components/layout/PageHeader'
+import FloatingFoodIcons from '@/components/home/FloatingFoodIcons'
+import Reveal from '@/components/ui/Reveal'
+import { Phone, Mail, AtSign, UserPlus } from 'lucide-react'
 
 export default async function ContactPage() {
   const info = await prisma.restaurantInfo.findFirst()
 
   return (
-    <div className="px-6 pt-8 pb-6">
-      <p className="text-xs uppercase tracking-wide text-creme-500 mb-2">
-        Nous écrire
-      </p>
-      <h1 className="text-4xl mb-6">Contact</h1>
+    <div className="relative px-6 pt-8 pb-6 overflow-hidden">
+      <FloatingFoodIcons />
+      <div className="relative z-10">
+        <PageHeader eyebrow="Nous écrire" title="Contact" />
 
-      {info && (
-        <div className="flex flex-col gap-3 mb-8">
-          <a href={`tel:${info.phone.replace(/\s/g, '')}`} className="block">
-            <Card className="flex items-center gap-3">
-              <Phone size={18} className="text-creme-500 shrink-0" />
-              <div>
-                <p className="text-xs uppercase tracking-wide text-creme-500">Téléphone</p>
-                <p className="text-creme-900">{info.phone}</p>
-              </div>
-            </Card>
-          </a>
+        {info && (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-8">
+            <Reveal delayMs={0}>
+              <a href={`tel:${info.phone.replace(/\s/g, '')}`} className="block group h-full">
+                <Card className="flex items-center gap-3 h-full transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] touch-manipulation group-hover:-translate-y-1 group-hover:shadow-lg group-hover:border-creme-500">
+                  <span className="flex items-center justify-center w-11 h-11 rounded-full bg-creme-300 shrink-0">
+                    <Phone size={18} className="text-creme-900" />
+                  </span>
+                  <div>
+                    <p className="text-xs uppercase tracking-wide text-creme-500">Téléphone</p>
+                    <p className="text-creme-900 font-medium">{info.phone}</p>
+                  </div>
+                </Card>
+              </a>
+            </Reveal>
 
-          <a href={`mailto:${info.email}`} className="block">
-            <Card className="flex items-center gap-3">
-              <Mail size={18} className="text-creme-500 shrink-0" />
-              <div>
-                <p className="text-xs uppercase tracking-wide text-creme-500">Email</p>
-                <p className="text-creme-900">{info.email}</p>
-              </div>
-            </Card>
-          </a>
+            <Reveal delayMs={60}>
+              <a href={`mailto:${info.email}`} className="block group h-full">
+                <Card className="flex items-center gap-3 h-full transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] touch-manipulation group-hover:-translate-y-1 group-hover:shadow-lg group-hover:border-creme-500">
+                  <span className="flex items-center justify-center w-11 h-11 rounded-full bg-creme-300 shrink-0">
+                    <Mail size={18} className="text-creme-900" />
+                  </span>
+                  <div>
+                    <p className="text-xs uppercase tracking-wide text-creme-500">Email</p>
+                    <p className="text-creme-900 font-medium break-all">{info.email}</p>
+                  </div>
+                </Card>
+              </a>
+            </Reveal>
 
-          <a href={`https://instagram.com/${info.instagram.replace('@', '')}`} target="_blank" rel="noopener noreferrer" className="block">
-            <Card className="flex items-center gap-3">
-              <AtSign size={18} className="text-creme-500 shrink-0" />
-              <div>
-                <p className="text-xs uppercase tracking-wide text-creme-500">Instagram</p>
-                <p className="text-creme-900">{info.instagram}</p>
-              </div>
-            </Card>
-          </a>
-        </div>
-      )}
+            <Reveal delayMs={120}>
+              <a
+                href={`https://instagram.com/${info.instagram.replace('@', '')}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block group h-full"
+              >
+                <Card className="flex items-center gap-3 h-full transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] touch-manipulation group-hover:-translate-y-1 group-hover:shadow-lg group-hover:border-creme-500">
+                  <span className="flex items-center justify-center w-11 h-11 rounded-full bg-creme-300 shrink-0">
+                    <AtSign size={18} className="text-creme-900" />
+                  </span>
+                  <div>
+                    <p className="text-xs uppercase tracking-wide text-creme-500">Instagram</p>
+                    <p className="text-creme-900 font-medium">{info.instagram}</p>
+                  </div>
+                </Card>
+              </a>
+            </Reveal>
+          </div>
+        )}
 
-      <Card>
-        <p className="text-xs uppercase tracking-wide text-creme-500 mb-2">
-          Rejoindre l&apos;équipe
-        </p>
-        <p className="text-creme-700 mb-4">
-          Vous souhaitez travailler avec nous ? Envoyez-nous une candidature spontanée.
-        </p>
-        <Link href="/contact/candidature">
-          <Button variant="primary" className="w-full">
-            Déposer une candidature
-          </Button>
-        </Link>
-      </Card>
+        <Reveal delayMs={180}>
+          <Card className="bg-creme-900 border-creme-900">
+            <div className="flex items-center gap-3 mb-3">
+              <span className="flex items-center justify-center w-11 h-11 rounded-full bg-creme-50/15 shrink-0">
+                <UserPlus size={20} className="text-creme-50" />
+              </span>
+              <p className="text-xs uppercase tracking-wide text-creme-300">
+                Rejoindre l&apos;équipe
+              </p>
+            </div>
+            <p className="text-creme-100 mb-4">
+              Vous souhaitez travailler avec nous ? Envoyez-nous une candidature spontanée.
+            </p>
+            <Link href="/contact/candidature">
+              <Button
+                variant="secondary"
+                className="w-full !border-creme-50 !text-creme-50 hover:!bg-creme-50/10"
+              >
+                Déposer une candidature
+              </Button>
+            </Link>
+          </Card>
+        </Reveal>
+      </div>
     </div>
   )
 }
